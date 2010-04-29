@@ -12,9 +12,11 @@ class FlatTextNode(template.Node):
         self.var_name = var_name
 
     def render(self, context):
-        ftxts = FlatText.objects.filter(slug=self.flattext_slug)
-        if (ftxts.count() > 0):
-            context[self.var_name] = mark_safe(ftxts[0].content)
+        try:
+            ftxt = FlatText.objects.get(slug=self.flattext_slug)
+            context[self.var_name] = mark_safe(ftxt.content)
+        except FlatText.DoesNotExist:
+            pass
         return ''
 
 import re
