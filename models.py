@@ -32,7 +32,8 @@ fetches using super then stores the result in cache.
                 obj = super(FlatTextQuerySet, self).get(*args, **kwargs)
             finally:
                 if obj is None:
-                    # if it doesn't exists, create an empty object
+                    # if it doesn't exists, create an empty object, so we can
+                    # still use the cache
                     obj = FlatText()
                 if key:
                     cache.set(key, obj, 0)
