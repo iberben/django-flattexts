@@ -1,6 +1,7 @@
 from django.core.cache import cache
 from django.db import models
 from django.db.models.query import QuerySet
+from django.utils.translation import ugettext_lazy as _
 
 class FlatTextManager(models.Manager):
     def get_query_set(self):
@@ -41,8 +42,8 @@ fetches using super then stores the result in cache.
 
 
 class FlatText(models.Model):
-    slug = models.SlugField()
-    content = models.TextField()
+    slug = models.SlugField(_('slug'))
+    content = models.TextField(_('content'))
 
     objects = FlatTextManager()
 
