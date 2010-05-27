@@ -3,14 +3,18 @@ from django.db import models
 from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
 
+def empty_cache(id, slug):
+    'Invalidate the cache for given id & slug'
+    cache.set('flattext__%s' % slug, None, 5)
+    cache.set('flattext__id__%s' % id, None, 5)
+
 class FlatTextManager(models.Manager):
     def get_query_set(self):
         return FlatTextQuerySet(self.model)
 
     def empty_cache(self, id, slug):
         'Invalidate the cache for given id & slug'
-        cache.set('flattext__%s' % slug, None, 5)
-        cache.set('flattext__id__%s' % id, None, 5)
+        empty_cache(id, slug)
 
 class FlatTextQuerySet(QuerySet):
     def get(self, *args, **kwargs):
@@ -53,10 +57,10 @@ class FlatText(models.Model):
 
     def save(self, *args, **kwargs):
         super(FlatText, self).save(*args, **kwargs)
-        self.objects.empty_cache(self.id, self.slug)
+        empty_cache(self.id, self.slug)
 
     def delete(self):
         slug = self.slug
         id = self.id
         super(FlatText, self).delete()
-        self.objects.empty_cache(id, slug)
+        empty_cache(id, slug)
