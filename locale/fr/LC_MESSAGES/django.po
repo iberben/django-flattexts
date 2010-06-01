@@ -1,5 +1,5 @@
 # Translations from City Live i18n database
-# Generated: 2010-05-20 09:55:00.909837
+# Generated: 2010-06-01 10:57:16.794641
 #, fuzzy
 msgid ""
 msgstr ""
@@ -7,11 +7,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: models.py:45
+#: models.py:49
 msgid "slug"
 msgstr "slug"
 
-#: models.py:46
+#: models.py:50
 msgid "content"
 msgstr "contenu"
 
