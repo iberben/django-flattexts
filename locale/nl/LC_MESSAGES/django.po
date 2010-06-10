@@ -1,10 +1,10 @@
 # Translations from City Live i18n database
-# Generated: 2010-06-03 15:56:52.228266
+# Generated: 2010-06-10 15:47:09.085707
 #, fuzzy
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-03 16:04+0200\n"
+"POT-Creation-Date: 2010-06-10 15:51+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
