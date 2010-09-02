@@ -3,6 +3,8 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-02 10:49+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,4 +16,3 @@ msgstr "slug"
 #: models.py:50
 msgid "content"
 msgstr "inhoud"
-
