@@ -1,5 +1,5 @@
 # Translations from City Live i18n database
-# Generated: 2011-01-19 12:03:35.759775
+# Generated: 2011-03-23 13:56:56.665659
 #, fuzzy
 msgid ""
 msgstr ""
