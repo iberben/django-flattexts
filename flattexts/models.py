@@ -9,7 +9,7 @@ def empty_cache(id, slug):
     cache.set('flattext__id__%s' % id, None, 5)
 
 class FlatTextManager(models.Manager):
-    def get_query_set(self):
+    def get_queryset(self):
         return FlatTextQuerySet(self.model)
 
     def empty_cache(self, id, slug):
