@@ -1,12 +1,16 @@
 from django.core.cache import cache
 from django.db import models
-from django.db.models.query import QuerySet
 from django.utils.translation import ugettext_lazy as _
+
+from parler.models import TranslatableModel, TranslatedFields
+from parler.managers import TranslatableQuerySet
+
 
 def empty_cache(id, slug):
     'Invalidate the cache for given id & slug'
     cache.set('flattext__%s' % slug, None, 5)
     cache.set('flattext__id__%s' % id, None, 5)
+
 
 class FlatTextManager(models.Manager):
     def get_queryset(self):
@@ -16,11 +20,12 @@ class FlatTextManager(models.Manager):
         'Invalidate the cache for given id & slug'
         empty_cache(id, slug)
 
-class FlatTextQuerySet(QuerySet):
+
+class FlatTextQuerySet(TranslatableQuerySet):
     def get(self, *args, **kwargs):
         """
         Checks the cache to see if there's a cached entry for this pk. If not,
-fetches using super then stores the result in cache.
+        fetches using super then stores the result in cache.
         """
         key = ''
         if len(kwargs) == 1:
@@ -45,9 +50,12 @@ fetches using super then stores the result in cache.
         return obj
 
 
-class FlatText(models.Model):
+class FlatText(TranslatableModel):
     slug = models.SlugField(_('slug'))
-    content = models.TextField(_('content'))
+
+    translations = TranslatedFields(
+        content=models.TextField(_('content'))
+    )
 
     objects = FlatTextManager()
 
