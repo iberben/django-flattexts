@@ -1,39 +1,19 @@
+# import re
+
 from django import template
-from django.template.defaultfilters import stringfilter
+# from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
 
 from flattexts.models import FlatText
 
 register = template.Library()
 
-class FlatTextNode(template.Node):
-    def __init__(self, flattext_slug, var_name):
-        self.flattext_slug = flattext_slug
-        self.var_name = var_name
 
-    def render(self, context):
-        try:
-            ftxt = FlatText.objects.get(slug=self.flattext_slug)
-            context[self.var_name] = mark_safe(ftxt.content)
-        except FlatText.DoesNotExist:
-            pass
-        return ''
-
-import re
-def get_flattext(parser, token):
-    # This version uses a regular expression to parse tag contents.
+@register.simple_tag
+def get_flattext(key, *args, **kwargs):
     try:
-        # Splitting by None == splitting by spaces.
-        tag_name, arg = token.contents.split(None, 1)
-    except ValueError:
-        raise template.TemplateSyntaxError, "%r tag requires arguments" % token.contents.split()[0]
-    m = re.search(r'(.*?) as (\w+)', arg)
-    if not m:
-        raise template.TemplateSyntaxError, "%r tag had invalid arguments" % tag_name
-    flattext_slug, var_name = m.groups()
-    if not (flattext_slug[0] == flattext_slug[-1] and flattext_slug[0] in ('"', "'")):
-        raise template.TemplateSyntaxError, "%r tag's argument should be in quotes" % tag_name
-    return FlatTextNode(flattext_slug[1:-1], var_name)
-
-register.tag('get_flattext', get_flattext)
-
+        ftxt = FlatText.objects.get(slug=key)
+        return mark_safe(ftxt.content)
+    except FlatText.DoesNotExist:
+        pass
+    return ''
